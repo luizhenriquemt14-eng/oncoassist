@@ -1,0 +1,9 @@
+# Arquivo de configuração de exemplo
+# Copie este arquivo para deploy.config e preencha com suas informações
+
+VPS_IP=5.189.178.64
+VPS_USER=root
+VPS_PASSWORD=sua_senha_aqui
+DOMAIN=oncoassist.lzmweb.site
+APP_DIR=/var/www/oncoassist
+
