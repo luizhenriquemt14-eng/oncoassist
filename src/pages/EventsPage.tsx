@@ -22,8 +22,8 @@ const EventsPage = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Nossos Eventos - Grand Rounds em Oncologia"
-        description="Explore nossa programacao de Grand Rounds em Oncologia, encontros cientificos dedicados a discussao de casos oncologicos desafiadores e a construcao coletiva do conhecimento."
-        keywords="eventos oncologia, Grand Rounds, congressos medicos, simposios oncologia, educacao medica continuada, casos clinicos oncologia"
+        description="Explore nossa programação de Grand Rounds em Oncologia, encontros científicos dedicados à discussão de casos oncológicos desafiadores e à construção coletiva do conhecimento."
+        keywords="eventos oncologia, Grand Rounds, congressos médicos, simpósios oncologia, educação médica continuada, casos clínicos oncologia"
         url="/eventos"
       />
       <Header />
@@ -37,19 +37,19 @@ const EventsPage = () => {
               </h1>
               <div className="text-lg md:text-xl text-primary-foreground/80 space-y-4 text-left">
                 <p>
-                  Explore nossa programacao de Grand Rounds em Oncologia, encontros
-                  cientificos dedicados a discussao de casos oncologicos desafiadores e a
-                  construcao coletiva do conhecimento.
+                  Explore nossa programação de Grand Rounds em Oncologia, encontros
+                  científicos dedicados à discussão de casos oncológicos desafiadores e à
+                  construção coletiva do conhecimento.
                 </p>
                 <p>
-                  Realizados de forma periodica, os Grand Rounds promovem a integracao da
-                  equipe multiprofissional, fortalecendo a tomada de decisao baseada em
-                  evidencias e na experiencia compartilhada.
+                  Realizados de forma periódica, os Grand Rounds promovem a integração da
+                  equipe multiprofissional, fortalecendo a tomada de decisão baseada em
+                  evidências e na experiência compartilhada.
                 </p>
                 <p>
-                  Cada encontro e uma oportunidade de aprofundamento tecnico,
-                  atualizacao cientifica e troca qualificada, sempre com foco na
-                  excelencia do cuidado ao paciente oncologico.
+                  Cada encontro é uma oportunidade de aprofundamento técnico,
+                  atualização científica e troca qualificada, sempre com foco na
+                  excelência do cuidado ao paciente oncológico.
                 </p>
                 <p>Saiba mais sobre cada evento abaixo.</p>
               </div>

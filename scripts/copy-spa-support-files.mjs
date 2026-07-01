@@ -1,0 +1,21 @@
+import { copyFile, mkdir } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, "..");
+const distDir = path.join(projectRoot, "dist");
+
+const filesToCopy = [
+  {
+    source: path.join(projectRoot, "public", ".htaccess"),
+    destination: path.join(distDir, ".htaccess"),
+  },
+];
+
+await mkdir(distDir, { recursive: true });
+
+for (const file of filesToCopy) {
+  await copyFile(file.source, file.destination);
+}

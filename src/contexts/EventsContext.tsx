@@ -15,6 +15,7 @@ import {
   EVENTS_VERSION_KEY,
 } from "@/lib/site-config";
 import { getSupabase } from "@/lib/supabase";
+import { sortEventsChronologically } from "@/lib/utils";
 import { useProfessionals } from "./ProfessionalsContext";
 
 interface EventsContextValue {
@@ -67,10 +68,12 @@ const normalizeStoredSpeakers = (value: unknown): Speaker[] => {
 
 const hydrateFallbackEvents = (professionals: Professional[]) => {
   const baseSpeakers = professionals.slice(0, 3).map(toSpeaker);
-  return fallbackEvents.map((event) => ({
-    ...event,
-    speakers: event.speakers.length > 0 ? event.speakers : baseSpeakers,
-  }));
+  return sortEventsChronologically(
+    fallbackEvents.map((event) => ({
+      ...event,
+      speakers: event.speakers.length > 0 ? event.speakers : baseSpeakers,
+    }))
+  );
 };
 
 const readCachedEvents = (professionals: Professional[]) => {
@@ -178,11 +181,13 @@ export const EventsProvider = ({ children }: PropsWithChildren) => {
       };
     });
 
-    setEvents(next);
+    const sortedEvents = sortEventsChronologically(next);
+
+    setEvents(sortedEvents);
     setIsLoading(false);
 
     try {
-      localStorage.setItem(EVENTS_CACHE_KEY, JSON.stringify(next));
+      localStorage.setItem(EVENTS_CACHE_KEY, JSON.stringify(sortedEvents));
       localStorage.setItem(EVENTS_VERSION_KEY, EVENTS_DATA_VERSION);
     } catch {
       // Ignore storage errors

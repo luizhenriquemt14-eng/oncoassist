@@ -12,17 +12,17 @@ const Footer = () => {
     <footer id="contato" className="bg-foreground text-primary-foreground">
       <div className="container mx-auto px-4 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="block mb-4">
-              <img 
-                src="/logo-cortada.png" 
-                alt="OncoAssist" 
+              <img
+                src="/logo-cortada.png"
+                alt="OncoAssist"
                 className="h-24 lg:h-28 object-contain"
               />
             </Link>
             <p className="text-primary-foreground/70 leading-relaxed mb-6">
-              Somos um time de oncologistas comprometidos em oferecer eventos científicos de excelência, sempre com foco no cuidado humanizado e na atualização constante.
+              Somos um time de oncologistas comprometidos em oferecer eventos científicos de
+              excelência, sempre com foco no cuidado humanizado e na atualização constante.
             </p>
             <div className="flex gap-4">
               <a
@@ -37,7 +37,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="font-display font-semibold text-lg mb-6">Links Rápidos</h4>
             <ul className="space-y-3">
@@ -57,13 +56,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a 
-                  href="#contato" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const footer = document.getElementById('contato');
+                <a
+                  href="#contato"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    const footer = document.getElementById("contato");
                     if (footer) {
-                      footer.scrollIntoView({ behavior: 'smooth' });
+                      footer.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
                   className="text-primary-foreground/70 hover:text-primary-foreground transition-colors"
@@ -74,15 +73,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Events */}
           <div>
             <h4 className="font-display font-semibold text-lg mb-6">Próximos Eventos</h4>
             <ul className="space-y-3">
               {upcomingEvents.length > 0 ? (
                 upcomingEvents.map((event) => (
                   <li key={event.id}>
-                    <Link 
-                      to={`/evento/${event.slug}`} 
+                    <Link
+                      to={`/evento/${event.slug}`}
                       className="text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                     >
                       {event.title}
@@ -95,7 +93,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact & Hours */}
           <div>
             <h4 className="font-display font-semibold text-lg mb-6">Contato</h4>
             <ul className="space-y-4">
@@ -123,7 +120,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/60 text-sm">
             © {currentYear} OncoAssist. Todos os direitos reservados.

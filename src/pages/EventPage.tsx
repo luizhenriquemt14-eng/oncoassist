@@ -41,8 +41,8 @@ const EventPage = () => {
     return (
       <div className="min-h-screen bg-background">
         <SEO
-          title="Evento nao encontrado"
-          description="O evento que voce esta procurando nao foi encontrado. Explore nossos outros eventos cientificos em oncologia."
+          title="Evento não encontrado"
+          description="O evento que você está procurando não foi encontrado. Explore nossos outros eventos científicos em oncologia."
           url={`/evento/${slug}`}
           noindex
         />
@@ -50,11 +50,11 @@ const EventPage = () => {
         <main className="pt-32 pb-20">
           <div className="container mx-auto px-4 text-center">
             <h1 className="font-display text-4xl font-bold text-foreground mb-4">
-              Evento nao encontrado
+              Evento não encontrado
             </h1>
             <p className="text-muted-foreground mb-8">
-              O evento que voce esta procurando nao foi encontrado. Pode ter sido
-              removido ou o endereco pode estar incorreto.
+              O evento que você está procurando não foi encontrado. Pode ter sido
+              removido ou o endereço pode estar incorreto.
             </p>
             <Link to="/">
               <Button>
@@ -73,17 +73,17 @@ const EventPage = () => {
     event.shortDescription ||
     (event.fullDescription
       ? `${event.fullDescription.substring(0, 160).replace(/\n/g, " ")}...`
-      : `Participe do ${event.title} em ${event.city} - ${event.state}. ${event.date} as ${event.time}.`);
+      : `Participe do ${event.title} em ${event.city} - ${event.state}. ${event.date} às ${event.time}.`);
 
   const keywords = [
     event.title.toLowerCase(),
     "oncologia",
-    "evento medico",
+    "evento médico",
     "Grand Rounds",
     event.city,
     event.state,
-    "congresso medico",
-    "educacao medica continuada",
+    "congresso médico",
+    "educação médica continuada",
   ].join(", ");
 
   const heroImage = isMobile
@@ -159,7 +159,7 @@ const EventPage = () => {
                   </div>
                 ) : (
                   <p className="text-muted-foreground leading-relaxed text-lg">
-                    Em breve mais informacoes sobre este evento.
+                    Em breve mais informações sobre este evento.
                   </p>
                 )}
               </section>
@@ -167,7 +167,7 @@ const EventPage = () => {
               <section>
                 <div className="flex flex-wrap gap-4">
                   <div className="bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium">
-                    Inscricao gratuita
+                    Inscrição gratuita
                   </div>
                   <div className="bg-primary/10 text-primary px-4 py-2 rounded-lg font-medium">
                     Evento presencial
@@ -184,7 +184,7 @@ const EventPage = () => {
                           <Users className="w-5 h-5 text-primary-foreground" />
                         </div>
                         <h3 className="font-display font-semibold text-foreground">
-                          Publico-alvo
+                          Público-alvo
                         </h3>
                       </div>
                       <p className="text-muted-foreground">{event.targetAudience}</p>
@@ -292,7 +292,7 @@ const EventPage = () => {
                     <div className="flex items-center gap-3">
                       <Clock className="w-5 h-5 text-primary" />
                       <div>
-                        <p className="text-sm text-muted-foreground">Horario</p>
+                        <p className="text-sm text-muted-foreground">Horário</p>
                         <p className="font-medium text-foreground">{event.time}</p>
                       </div>
                     </div>

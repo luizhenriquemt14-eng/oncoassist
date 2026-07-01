@@ -116,8 +116,8 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
     if (formData.website.trim()) {
       resetForm();
       toast({
-        title: "Solicitacao enviada com sucesso!",
-        description: `Recebemos seu interesse no evento "${eventTitle}". Nossa equipe entrara em contato para confirmar a vaga.`,
+        title: "Solicitação enviada com sucesso!",
+        description: `Recebemos seu interesse no evento "${eventTitle}". Nossa equipe entrará em contato para confirmar a vaga.`,
       });
       return;
     }
@@ -134,7 +134,7 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
     if (elapsedMs < PUBLIC_FORM_MIN_FILL_MS) {
       toast({
         title: "Confirme os dados",
-        description: "Revise o formulario e tente novamente em alguns segundos.",
+        description: "Revise o formulário e tente novamente em alguns segundos.",
         variant: "destructive",
       });
       return;
@@ -147,7 +147,7 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
 
     if (!name || !email || !phone || !specialty) {
       toast({
-        title: "Campos obrigatorios",
+        title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos.",
         variant: "destructive",
       });
@@ -156,8 +156,8 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
 
     if (!isValidEmail(email)) {
       toast({
-        title: "E-mail invalido",
-        description: "Informe um e-mail valido para concluir a inscricao.",
+        title: "E-mail inválido",
+        description: "Informe um e-mail válido para concluir a inscrição.",
         variant: "destructive",
       });
       return;
@@ -165,8 +165,8 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
 
     if (!isValidPhone(phone)) {
       toast({
-        title: "Celular invalido",
-        description: "Informe um telefone com DDD para concluir a inscricao.",
+        title: "Celular inválido",
+        description: "Informe um telefone com DDD para concluir a inscrição.",
         variant: "destructive",
       });
       return;
@@ -203,13 +203,13 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
 
       setLastSubmit(submittedAt);
       toast({
-        title: "Solicitacao enviada com sucesso!",
-        description: `Recebemos seu interesse no evento "${eventTitle}". Nossa equipe entrara em contato para confirmar a vaga.`,
+        title: "Solicitação enviada com sucesso!",
+        description: `Recebemos seu interesse no evento "${eventTitle}". Nossa equipe entrará em contato para confirmar a vaga.`,
       });
       resetForm();
     } catch (error) {
       toast({
-        title: "Erro ao enviar inscricao",
+        title: "Erro ao enviar inscrição",
         description:
           error instanceof Error
             ? error.message
@@ -224,13 +224,13 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
   return (
     <div id="inscricao" className="bg-card rounded-2xl p-6 lg:p-8 card-shadow">
       <h3 className="font-display text-2xl font-bold text-foreground mb-2">
-        Solicite sua participacao
+        Solicite sua participação
       </h3>
       <p className="text-muted-foreground mb-6">
-        Preencha o formulario abaixo para se candidatar gratuitamente. Nossa equipe entrara em contato para confirmar sua vaga.
+        Preencha o formulário abaixo para se candidatar gratuitamente. Nossa equipe entrará em contato para confirmar sua vaga.
       </p>
       <p className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-foreground mb-6">
-        As vagas sao limitadas por especialidade e a confirmacao sera feita pela nossa equipe.
+        As vagas são limitadas por especialidade e a confirmação será feita pela nossa equipe.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -312,7 +312,7 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
             <SelectContent>
               <SelectItem value="Enfermeiro(a)">Enfermeiros</SelectItem>
               <SelectItem value="Nutricionista">Nutricionistas</SelectItem>
-              <SelectItem value="Farmaceutico(a)">Farmaceuticos</SelectItem>
+              <SelectItem value="Farmacêutico(a)">Farmacêuticos</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -323,14 +323,14 @@ const EventRegistrationForm = ({ eventTitle, eventSlug }: EventRegistrationFormP
           ) : (
             <>
               <Send className="w-5 h-5 mr-2" />
-              Solicitar Inscricao
+              Solicitar Inscrição
             </>
           )}
         </Button>
       </form>
 
       <p className="text-sm text-muted-foreground text-center mt-4">
-        Ao se inscrever, voce concorda com nossa politica de privacidade.
+        Ao se inscrever, você concorda com nossa política de privacidade.
       </p>
     </div>
   );
