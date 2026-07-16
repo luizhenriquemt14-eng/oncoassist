@@ -99,6 +99,22 @@ const readCachedEvents = (professionals: Professional[]) => {
   }
 };
 
+const supportsRegistrationEnabled = (error: { message?: string } | null) =>
+  !error || !error.message?.includes("registration_enabled");
+
+const selectEvents = async (
+  includeRegistrationEnabled: boolean,
+  supabase: NonNullable<ReturnType<typeof getSupabase>>
+) => {
+  const baseFields =
+    "id,slug,title,short_description,full_description,date,time,location,address,city,state,target_audience,objective,image,mobile_image,speakers,schedule";
+  const fields = includeRegistrationEnabled
+    ? `${baseFields},registration_enabled`
+    : baseFields;
+
+  return supabase.from("events").select(fields).order("date");
+};
+
 export const EventsProvider = ({ children }: PropsWithChildren) => {
   const { professionals } = useProfessionals();
   const [events, setEvents] = useState<Event[]>(() => readCachedEvents(professionals));
@@ -112,13 +128,13 @@ export const EventsProvider = ({ children }: PropsWithChildren) => {
       return;
     }
 
-    const [eventsResponse, speakersResponse] = await Promise.all([
-      supabase
-        .from("events")
-        .select(
-          "id,slug,title,short_description,full_description,date,time,location,address,city,state,target_audience,objective,image,mobile_image,speakers,schedule"
-        )
-        .order("date"),
+    let eventsResponse = await selectEvents(true, supabase);
+    if (!supportsRegistrationEnabled(eventsResponse.error)) {
+      eventsResponse = await selectEvents(false, supabase);
+    }
+
+    const [, speakersResponse] = await Promise.all([
+      Promise.resolve(eventsResponse),
       supabase
         .from("event_speakers")
         .select("event_id,position,professional:professionals(id,name,role,photo_url)")
@@ -176,6 +192,8 @@ export const EventsProvider = ({ children }: PropsWithChildren) => {
         objective: item.objective ?? "",
         image: item.image,
         mobileImage: item.mobile_image ?? undefined,
+        registrationEnabled:
+          "registration_enabled" in item ? (item.registration_enabled ?? true) : true,
         schedule: item.schedule ?? undefined,
         speakers: relationSpeakers.length > 0 ? relationSpeakers : storedSpeakers,
       };
@@ -202,7 +220,7 @@ export const EventsProvider = ({ children }: PropsWithChildren) => {
         return;
       }
 
-      const { error } = await supabase.from("events").upsert({
+      const payload = {
         id,
         slug: event.slug,
         title: event.title,
@@ -220,7 +238,16 @@ export const EventsProvider = ({ children }: PropsWithChildren) => {
         mobile_image: event.mobileImage ?? null,
         speakers: event.speakers,
         schedule: event.schedule ?? [],
+      };
+
+      let { error } = await supabase.from("events").upsert({
+        ...payload,
+        registration_enabled: event.registrationEnabled ?? true,
       });
+
+      if (!supportsRegistrationEnabled(error)) {
+        ({ error } = await supabase.from("events").upsert(payload));
+      }
 
       if (error) {
         throw error;

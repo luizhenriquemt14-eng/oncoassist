@@ -65,3 +65,17 @@ export const writeStoredAdminSession = (session: Session | null) => {
     // Ignore storage errors
   }
 };
+
+export const restoreSupabaseAdminSession = async () => {
+  const supabase = getSupabase();
+  const session = readStoredAdminSession();
+
+  if (!supabase || !session) {
+    return;
+  }
+
+  await supabase.auth.setSession({
+    access_token: session.access_token,
+    refresh_token: session.refresh_token,
+  });
+};

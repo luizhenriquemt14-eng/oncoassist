@@ -13,7 +13,7 @@ import { useProfessionals } from "@/contexts/ProfessionalsContext";
 import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import type { Event, EventFormValues, Professional } from "@/types/site";
-import { getSupabase } from "@/lib/supabase";
+import { getSupabase, restoreSupabaseAdminSession } from "@/lib/supabase";
 
 const ACCEPTED_IMAGE_TYPES = "image/jpeg,image/png,image/webp,image/gif";
 
@@ -50,6 +50,7 @@ const toEventFormValues = (event: Event): EventFormValues => ({
   objective: event.objective,
   image: event.image,
   mobileImage: event.mobileImage ?? "",
+  registrationEnabled: event.registrationEnabled !== false,
   schedule: (event.schedule || []).map((item) => ({
     time: item.time,
     title: item.title,
@@ -58,6 +59,8 @@ const toEventFormValues = (event: Event): EventFormValues => ({
 });
 
 const uploadToStorage = async (file: File, folder: string) => {
+  await restoreSupabaseAdminSession();
+
   const supabase = getSupabase();
   if (!supabase) {
     throw new Error("Supabase nao configurado.");
@@ -106,7 +109,7 @@ const EventEditor = ({
     setSelectedSpeakerIds(event.speakers.map((speaker) => speaker.id));
   }, [event]);
 
-  const handleFieldChange = (name: keyof EventFormValues, value: string) => {
+  const handleFieldChange = <K extends keyof EventFormValues>(name: K, value: EventFormValues[K]) => {
     setForm((current) => ({ ...current, [name]: value }));
   };
 
@@ -176,7 +179,8 @@ const EventEditor = ({
         setIsUploadingMobileBanner(true);
       }
 
-      const folder = kind === "desktop" ? `events/${event.slug}` : `banners-mobile/${event.slug}`;
+      const folder =
+        kind === "desktop" ? `events/${event.slug}` : `events/${event.slug}/mobile`;
       const publicUrl = await uploadToStorage(file, folder);
       handleFieldChange(kind === "desktop" ? "image" : "mobileImage", publicUrl);
       toast({
@@ -233,6 +237,7 @@ const EventEditor = ({
       objective: form.objective.trim(),
       image: form.image.trim() || event.image,
       mobileImage: form.mobileImage.trim() || undefined,
+      registrationEnabled: form.registrationEnabled,
       schedule: form.schedule
         .filter((item) => item.time.trim() || item.title.trim())
         .map((item) => ({
@@ -407,6 +412,21 @@ const EventEditor = ({
                 <Upload className="w-4 h-4 mr-2" />
                 {isUploadingMobileBanner ? "Enviando..." : "Enviar"}
               </Button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-lg border p-4">
+            <input
+              id="registrationEnabled"
+              type="checkbox"
+              checked={form.registrationEnabled}
+              onChange={(event) => handleFieldChange("registrationEnabled", event.target.checked)}
+            />
+            <div className="space-y-1">
+              <Label htmlFor="registrationEnabled">Inscricoes habilitadas</Label>
+              <p className="text-sm text-muted-foreground">
+                Desative para remover o formulario de inscricao da pagina do evento.
+              </p>
             </div>
           </div>
 

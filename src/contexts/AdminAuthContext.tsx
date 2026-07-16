@@ -12,7 +12,12 @@ import {
   ADMIN_LAST_ACTIVITY_KEY,
   ADMIN_LOGOUT_REASON_KEY,
 } from "@/lib/site-config";
-import { getSupabase, readStoredAdminSession, writeStoredAdminSession } from "@/lib/supabase";
+import {
+  getSupabase,
+  readStoredAdminSession,
+  restoreSupabaseAdminSession,
+  writeStoredAdminSession,
+} from "@/lib/supabase";
 
 interface AdminAuthContextValue {
   session: Session | null;
@@ -76,6 +81,14 @@ export const AdminAuthProvider = ({ children }: PropsWithChildren) => {
     },
     [persistSession]
   );
+
+  useEffect(() => {
+    if (!session) {
+      return;
+    }
+
+    void restoreSupabaseAdminSession();
+  }, [session]);
 
   useEffect(() => {
     if (!session) {

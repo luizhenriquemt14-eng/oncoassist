@@ -308,7 +308,9 @@ const EventPage = () => {
                   </div>
                 </div>
 
-                <EventRegistrationForm eventTitle={event.title} eventSlug={event.slug} />
+                {event.registrationEnabled !== false ? (
+                  <EventRegistrationForm eventTitle={event.title} eventSlug={event.slug} />
+                ) : null}
               </div>
             </div>
           </div>

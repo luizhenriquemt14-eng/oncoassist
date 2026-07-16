@@ -42,6 +42,7 @@ export interface Event {
   objective: string;
   image: string;
   mobileImage?: string;
+  registrationEnabled?: boolean;
   speakers: Speaker[];
   schedule?: ScheduleItem[];
 }
@@ -60,6 +61,7 @@ export interface EventFormValues {
   objective: string;
   image: string;
   mobileImage: string;
+  registrationEnabled: boolean;
   schedule: Array<{
     time: string;
     title: string;
